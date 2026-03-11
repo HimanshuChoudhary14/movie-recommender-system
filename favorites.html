@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Favorites</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+margin:0;
+}
+
+.header{
+background:#111;
+padding:15px;
+text-align:center;
+}
+
+.header a{
+color:white;
+text-decoration:none;
+font-size:18px;
+}
+
+h1{
+text-align:center;
+margin-top:20px;
+}
+
+.movies{
+padding:30px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+}
+
+.movie{
+background:#1a1a1a;
+border-radius:12px;
+overflow:hidden;
+transition:0.3s;
+}
+
+.movie:hover{
+transform:translateY(-5px);
+box-shadow:0 0 10px #ff2c2c;
+}
+
+.movie img{
+width:100%;
+height:300px;
+object-fit:cover;
+}
+
+.movie h3{
+text-align:center;
+padding:10px;
+font-size:15px;
+}
+
+.empty{
+text-align:center;
+margin-top:40px;
+font-size:18px;
+color:#aaa;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<a href="/">⬅ Back to Home</a>
+</div>
+
+<h1>❤️ Favorite Movies</h1>
+
+{% if movies|length > 0 %}
+
+<div class="movies">
+
+{% for movie in movies.itertuples() %}
+
+<div class="movie">
+
+<a href="/movie/{{movie.title}}">
+<img src="{{movie.poster if movie.poster else 'https://via.placeholder.com/300x450?text=No+Poster'}}">
+</a>
+
+<h3>{{movie.title}}</h3>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty">
+No favorite movies yet ❤️
+</div>
+
+{% endif %}
+
+</body>
+</html>

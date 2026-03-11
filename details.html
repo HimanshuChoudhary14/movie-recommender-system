@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{{movie.title}} | CineMatch</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#0f0f0f;
+color:white;
+}
+
+.header{
+background:linear-gradient(90deg,#1c1c1c,#111);
+padding:18px 25px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+.logo{
+font-size:32px;
+font-weight:bold;
+}
+
+.logo span{
+color:#ff2c2c;
+}
+
+.back-btn{
+background:#222;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:8px;
+cursor:pointer;
+font-size:14px;
+}
+
+.back-btn:hover{
+background:#333;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:30px;
+}
+
+.movie-info{
+display:flex;
+gap:35px;
+flex-wrap:wrap;
+align-items:flex-start;
+background:#151515;
+padding:25px;
+border-radius:16px;
+box-shadow:0 0 15px rgba(255,44,44,0.08);
+}
+
+.poster{
+width:300px;
+flex-shrink:0;
+}
+
+.poster img{
+width:100%;
+height:auto;
+border-radius:14px;
+object-fit:cover;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+.details{
+flex:1;
+min-width:300px;
+}
+
+.details h1{
+margin-top:0;
+font-size:36px;
+margin-bottom:10px;
+}
+
+.tagline{
+color:#ffb3b3;
+font-style:italic;
+margin-bottom:18px;
+}
+
+.info-grid{
+display:grid;
+grid-template-columns:repeat(2, minmax(250px, 1fr));
+gap:12px 25px;
+margin-top:15px;
+}
+
+.info-box{
+background:#1b1b1b;
+padding:12px 14px;
+border-radius:10px;
+font-size:14px;
+line-height:1.6;
+}
+
+.label{
+color:#ff2c2c;
+font-weight:bold;
+}
+
+.overview-box{
+margin-top:22px;
+background:#1b1b1b;
+padding:18px;
+border-radius:12px;
+line-height:1.7;
+}
+
+.overview-box h3{
+margin-top:0;
+margin-bottom:10px;
+color:#ff2c2c;
+}
+
+.cast-section{
+margin-top:25px;
+background:#1b1b1b;
+padding:18px;
+border-radius:12px;
+}
+
+.cast-section h3{
+margin-top:0;
+margin-bottom:12px;
+color:#ff2c2c;
+}
+
+.cast-list{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+}
+
+.cast-chip{
+background:#252525;
+padding:8px 12px;
+border-radius:20px;
+font-size:13px;
+border:1px solid #333;
+}
+
+.section-title{
+margin-top:40px;
+margin-bottom:18px;
+font-size:24px;
+color:white;
+}
+
+.recommend{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:20px;
+}
+
+.movie{
+background:#1a1a1a;
+border-radius:12px;
+overflow:hidden;
+transition:0.3s;
+}
+
+.movie:hover{
+transform:translateY(-5px);
+box-shadow:0 0 12px #ff2c2c;
+}
+
+.movie img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+}
+
+.movie h4{
+text-align:center;
+padding:10px 8px 4px 8px;
+font-size:14px;
+margin:0;
+min-height:42px;
+}
+
+.movie p{
+text-align:center;
+color:gold;
+font-size:13px;
+margin:0 0 8px 0;
+}
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:8px;
+padding:0 10px 12px 10px;
+flex-wrap:wrap;
+}
+
+.trailer{
+background:#ff2c2c;
+border:none;
+color:white;
+padding:6px 10px;
+border-radius:4px;
+cursor:pointer;
+font-size:12px;
+}
+
+.details-btn{
+background:#444;
+border:none;
+color:white;
+padding:6px 10px;
+border-radius:4px;
+cursor:pointer;
+font-size:12px;
+}
+
+.empty{
+color:#aaa;
+font-size:14px;
+background:#1a1a1a;
+padding:16px;
+border-radius:10px;
+}
+
+#popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+#popup iframe{
+width:80%;
+max-width:900px;
+height:500px;
+border:none;
+border-radius:10px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:35px;
+font-size:32px;
+cursor:pointer;
+color:white;
+}
+
+@media(max-width:1100px){
+.recommend{
+grid-template-columns:repeat(3,1fr);
+}
+}
+
+@media(max-width:768px){
+.movie-info{
+flex-direction:column;
+align-items:center;
+}
+
+.poster{
+width:260px;
+}
+
+.details{
+width:100%;
+}
+
+.info-grid{
+grid-template-columns:1fr;
+}
+
+.recommend{
+grid-template-columns:repeat(2,1fr);
+}
+
+#popup iframe{
+width:95%;
+height:300px;
+}
+}
+
+@media(max-width:480px){
+.recommend{
+grid-template-columns:1fr;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+<div class="logo">🎬 Cine<span>Match</span></div>
+<button class="back-btn" onclick="window.location.href='/'">⬅ Back to Home</button>
+</div>
+
+<div class="container">
+
+<!-- MOVIE MAIN DETAILS -->
+<div class="movie-info">
+
+<div class="poster">
+<img src="{{ movie.poster if movie.poster else 'https://via.placeholder.com/300x450?text=No+Poster' }}">
+</div>
+
+<div class="details">
+
+<h1>{{ movie.title if movie.title else 'Unknown Title' }}</h1>
+
+<p class="tagline">
+{{ movie.tagline if movie.tagline and movie.tagline != 'N/A' else 'No tagline available' }}
+</p>
+
+<div class="info-grid">
+
+<div class="info-box">
+<span class="label">Release Date:</span>
+{{ movie.release_date if movie.release_date else 'Unknown' }}
+</div>
+
+<div class="info-box">
+<span class="label">Genres:</span>
+{{ movie.genres if movie.genres else 'N/A' }}
+</div>
+
+<div class="info-box">
+<span class="label">Runtime:</span>
+{{ movie.runtime if movie.runtime else 'N/A' }} min
+</div>
+
+<div class="info-box">
+<span class="label">IMDb Rating:</span>
+⭐ {{ movie.vote_average if movie.vote_average else 'N/A' }}
+</div>
+
+<div class="info-box">
+<span class="label">Director:</span>
+{{ director if director else 'Unknown' }}
+</div>
+
+<div class="info-box">
+<span class="label">Languages:</span>
+{{ movie.spoken_languages if movie.spoken_languages else 'N/A' }}
+</div>
+
+</div>
+
+<div class="overview-box">
+<h3>📝 Overview</h3>
+<p>{{ movie.overview if movie.overview else 'Overview not available.' }}</p>
+</div>
+
+<div class="cast-section">
+<h3>🎭 Cast</h3>
+
+{% if cast and cast != 'N/A' %}
+<div class="cast-list">
+
+{% for actor in cast.split(',') %}
+<div class="cast-chip">{{ actor.strip() }}</div>
+{% endfor %}
+
+</div>
+{% else %}
+<p class="empty">Cast information not available</p>
+{% endif %}
+
+</div>
+
+<div style="margin-top:20px;">
+<button class="trailer" onclick="playTrailer('{{ movie.title }}')">▶ Watch Trailer</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- SIMILAR MOVIES -->
+<h2 class="section-title">🔥 Similar Movies</h2>
+
+{% if recs is not none and not recs.empty %}
+
+<div class="recommend">
+
+{% for m in recs.itertuples() %}
+
+<div class="movie">
+
+<a href="/movie/{{m.title|urlencode}}">
+<img src="{{ m.poster if m.poster else (m.poster_url if m.poster_url else 'https://via.placeholder.com/300x450?text=No+Poster') }}">
+</a>
+
+<h4>{{ m.title }}</h4>
+<p>IMDb ⭐ {{ "%.1f"|format(m.vote_average) if m.vote_average is not none else 'N/A' }}</p>
+
+<div class="buttons">
+<button class="trailer" onclick="playTrailer('{{m.title}}')">Trailer</button>
+<button class="details-btn" onclick="window.location.href='/movie/{{m.title|urlencode}}'">Details</button>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<p class="empty">No similar movies found.</p>
+
+{% endif %}
+
+</div>
+
+<!-- TRAILER POPUP -->
+<div id="popup">
+<div class="close" onclick="closeTrailer()">✖</div>
+<iframe id="trailer" allowfullscreen></iframe>
+</div>
+
+<script>
+
+function playTrailer(title){
+document.getElementById("popup").style.display = "flex";
+let query = encodeURIComponent(title + " official trailer");
+document.getElementById("trailer").src = "https://www.youtube.com/embed?listType=search&list=" + query;
+}
+
+function closeTrailer(){
+document.getElementById("popup").style.display = "none";
+document.getElementById("trailer").src = "";
+}
+
+</script>
+
+</body>
+</html>

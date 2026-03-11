@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>{{movie.title}} | CineMatch</title>
+
+<style>
+
+body{
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+margin:0;
+}
+
+.container{
+width:1000px;
+margin:auto;
+padding:40px;
+}
+
+.poster{
+float:left;
+margin-right:40px;
+}
+
+.poster img{
+width:300px;
+border-radius:10px;
+}
+
+.details{
+overflow:hidden;
+}
+
+h1{
+margin-top:0;
+}
+
+.label{
+color:#ff2c2c;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="poster">
+<img src="{{movie.poster_url}}">
+</div>
+
+<div class="details">
+
+<h1>{{movie.title}}</h1>
+
+<p><span class="label">ID:</span> {{movie.id}}</p>
+
+<p><span class="label">Release Date:</span> {{movie.release_date}}</p>
+
+<p><span class="label">Tagline:</span> {{movie.tagline}}</p>
+
+<p><span class="label">Popularity:</span> {{movie.popularity}}</p>
+
+<p><span class="label">Rating:</span> {{movie.vote_average}}</p>
+
+<p><span class="label">Votes:</span> {{movie.vote_count}}</p>
+
+<p><span class="label">Genres:</span> {{movie.genres}}</p>
+
+<p><span class="label">Runtime:</span> {{movie.runtime}}</p>
+
+<p><span class="label">Budget:</span> {{movie.budget}}</p>
+
+<p><span class="label">Revenue:</span> {{movie.revenue}}</p>
+
+<p><span class="label">Languages:</span> {{movie.spoken_languages}}</p>
+
+<p><span class="label">Cast:</span> {{movie.cast}}</p>
+
+<p><span class="label">Director:</span> {{movie.director}}</p>
+
+<p><span class="label">Overview:</span> {{movie.overview}}</p>
+
+</div>
+
+</div>
+
+</body>
+</html>

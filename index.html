@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>CineMatch</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+ *{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(180deg,#0b0b0b,#111,#0d0d0d);
+color:white;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(90deg,#1c1c1c,#111);
+padding:18px 24px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:40px;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 4px 14px rgba(0,0,0,0.35);
+border-bottom:1px solid rgba(255,255,255,0.04);
+}
+
+.logo{
+font-size:38px;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+user-select:none;
+}
+
+.logo:hover{
+transform:scale(1.03);
+}
+
+.logo span{
+color:#ff2c2c;
+text-shadow:0 0 10px rgba(255,44,44,0.25);
+}
+
+/* PROFILE ICON */
+
+.profile{
+position:absolute;
+right:24px;
+width:46px;
+height:46px;
+border-radius:50%;
+background:linear-gradient(135deg,#2b2b2b,#1a1a1a);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+border:1px solid #333;
+transition:0.3s;
+box-shadow:0 0 10px rgba(255,44,44,0.08);
+}
+
+.profile:hover{
+transform:scale(1.08);
+background:linear-gradient(135deg,#ff2c2c,#b30000);
+box-shadow:0 0 16px rgba(255,44,44,0.35);
+}
+
+.profile-icon{
+font-size:22px;
+line-height:1;
+}
+
+/* SEARCH BAR */
+
+.search-bar{
+width:520px;
+max-width:100%;
+display:flex;
+position:relative;
+}
+
+.search-bar input{
+flex:1;
+padding:13px 14px;
+border:none;
+outline:none;
+border-radius:10px 0 0 10px;
+background:#1b1b1b;
+color:white;
+font-size:15px;
+border:1px solid #2b2b2b;
+border-right:none;
+}
+
+.search-bar input:focus{
+background:#202020;
+}
+
+.search-bar button{
+padding:13px 18px;
+border:none;
+background:linear-gradient(135deg,#ff2c2c,#c10000);
+color:white;
+border-radius:0 10px 10px 0;
+cursor:pointer;
+font-weight:bold;
+border:1px solid #ff2c2c;
+transition:0.3s;
+}
+
+.search-bar button:hover{
+background:linear-gradient(135deg,#ff3b3b,#a80000);
+box-shadow:0 0 12px rgba(255,44,44,0.25);
+}
+
+/* NAVBAR */
+
+.navbar{
+background:#161616;
+display:flex;
+padding:12px;
+gap:15px;
+justify-content:center;
+flex-wrap:wrap;
+border-bottom:1px solid rgba(255,255,255,0.03);
+}
+
+.menu{
+position:relative;
+}
+
+.menu button{
+background:linear-gradient(135deg,#222,#1a1a1a);
+border:1px solid #2f2f2f;
+padding:10px 16px;
+color:white;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+.menu button:hover{
+background:linear-gradient(135deg,#ff2c2c,#b30000);
+border-color:#ff2c2c;
+transform:translateY(-2px);
+}
+
+.dropdown{
+display:none;
+position:absolute;
+background:#1f1f1f;
+top:48px;
+left:0;
+width:220px;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 8px 18px rgba(0,0,0,0.35);
+border:1px solid #2a2a2a;
+z-index:999;
+}
+
+.dropdown a{
+color:white;
+padding:12px 14px;
+text-decoration:none;
+display:block;
+transition:0.2s;
+}
+
+.dropdown a:hover{
+background:#333;
+}
+
+/* SECTION HEADINGS */
+
+.trending h2,
+.section-title{
+font-size:28px;
+margin:0 0 18px 0;
+color:white;
+}
+
+/* TRENDING */
+
+.trending{
+padding:26px 24px 10px 24px;
+}
+
+.trend-row{
+display:flex;
+gap:18px;
+overflow-x:auto;
+padding-bottom:10px;
+scrollbar-width:thin;
+scrollbar-color:#ff2c2c #111;
+}
+
+.trend-row::-webkit-scrollbar{
+height:8px;
+}
+
+.trend-row::-webkit-scrollbar-track{
+background:#111;
+border-radius:20px;
+}
+
+.trend-row::-webkit-scrollbar-thumb{
+background:#ff2c2c;
+border-radius:20px;
+}
+
+.trend-card{
+min-width:210px;
+max-width:210px;
+background:linear-gradient(145deg,#1a1a1a,#131313);
+border-radius:14px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.04);
+transition:0.3s;
+box-shadow:0 6px 14px rgba(0,0,0,0.18);
+}
+
+.trend-card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 16px rgba(255,44,44,0.22);
+border-color:rgba(255,44,44,0.18);
+}
+
+.trend-card img{
+width:100%;
+height:300px;
+object-fit:cover;
+display:block;
+}
+
+.trend-info{
+padding:12px;
+text-align:center;
+}
+
+.trend-info h4{
+margin:0;
+font-size:15px;
+font-weight:bold;
+color:white;
+line-height:1.4;
+min-height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.trend-info p{
+margin:8px 0 0 0;
+font-size:13px;
+color:gold;
+}
+
+/* ALL MOVIES GRID */
+
+.movies{
+padding:28px 24px 10px 24px;
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:22px;
+}
+
+.movie{
+background:linear-gradient(145deg,#1a1a1a,#131313);
+border-radius:14px;
+overflow:hidden;
+transition:0.3s;
+border:1px solid rgba(255,255,255,0.04);
+box-shadow:0 6px 14px rgba(0,0,0,0.16);
+}
+
+.movie:hover{
+transform:translateY(-6px);
+box-shadow:0 0 16px rgba(255,44,44,0.22);
+border-color:rgba(255,44,44,0.18);
+}
+
+.movie img{
+width:100%;
+height:370px;
+object-fit:cover;
+display:block;
+background:#111;
+}
+
+.movie h3{
+font-size:16px;
+padding:12px 10px 6px 10px;
+text-align:center;
+margin:0;
+line-height:1.4;
+min-height:52px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.movie p{
+text-align:center;
+color:gold;
+margin:0 0 10px 0;
+font-weight:bold;
+font-size:14px;
+}
+
+/* BUTTONS */
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:8px;
+margin:0 10px 14px 10px;
+flex-wrap:wrap;
+}
+
+.trailer,
+.favorite,
+.details{
+border:none;
+color:white;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+font-size:13px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.trailer{
+background:linear-gradient(135deg,#ff2c2c,#b30000);
+}
+
+.trailer:hover{
+transform:translateY(-2px);
+box-shadow:0 0 10px rgba(255,44,44,0.25);
+}
+
+.favorite{
+background:#222;
+font-size:16px;
+border:1px solid #333;
+}
+
+.favorite:hover{
+background:#2c2c2c;
+}
+
+.details{
+background:#3a3a3a;
+}
+
+.details:hover{
+background:#4a4a4a;
+}
+
+.favorite.active{
+color:#ff2c2c;
+background:#1c1c1c;
+border-color:#ff2c2c;
+}
+
+/* PAGINATION */
+
+.pagination{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin:35px 20px 45px 20px;
+flex-wrap:wrap;
+}
+
+.page-btn{
+padding:9px 15px;
+background:#222;
+color:white;
+text-decoration:none;
+border-radius:8px;
+border:1px solid #333;
+font-weight:bold;
+display:inline-block;
+transition:0.3s;
+min-width:44px;
+text-align:center;
+}
+
+.page-btn:hover{
+background:#ff2c2c;
+border-color:#ff2c2c;
+transform:translateY(-2px);
+}
+
+.page-btn.active{
+background:#ff2c2c;
+color:white;
+border-color:#ff2c2c;
+}
+
+.page-btn.disabled{
+background:#111;
+color:#666;
+border-color:#222;
+cursor:not-allowed;
+pointer-events:none;
+}
+
+/* POPUP */
+
+#popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.92);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+}
+
+#popup iframe{
+width:900px;
+max-width:95%;
+height:500px;
+max-height:80vh;
+border:none;
+border-radius:12px;
+box-shadow:0 0 18px rgba(255,44,44,0.20);
+background:#000;
+}
+
+.close{
+position:absolute;
+top:18px;
+right:30px;
+font-size:34px;
+cursor:pointer;
+color:white;
+transition:0.3s;
+}
+
+.close:hover{
+color:#ff2c2c;
+transform:scale(1.1);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1200px){
+.movies{
+grid-template-columns:repeat(4,1fr);
+}
+}
+
+@media(max-width:992px){
+.movies{
+grid-template-columns:repeat(3,1fr);
+}
+
+.search-bar{
+width:420px;
+}
+}
+
+@media(max-width:768px){
+.header{
+flex-direction:column;
+gap:14px;
+padding:18px;
+}
+
+.logo{
+font-size:32px;
+}
+
+.search-bar{
+width:100%;
+max-width:100%;
+}
+
+.profile{
+position:static;
+margin-top:4px;
+}
+
+.navbar{
+padding:10px;
+gap:10px;
+}
+
+.trending{
+padding:20px 16px 10px 16px;
+}
+
+.movies{
+padding:22px 16px 10px 16px;
+grid-template-columns:repeat(2,1fr);
+gap:16px;
+}
+
+.movie img{
+height:300px;
+}
+
+#popup iframe{
+height:300px;
+}
+}
+
+@media(max-width:520px){
+.movies{
+grid-template-columns:1fr;
+}
+
+.trend-card{
+min-width:180px;
+max-width:180px;
+}
+
+.trend-card img{
+height:260px;
+}
+
+.movie img{
+height:320px;
+}
+
+.movie h3{
+font-size:15px;
+}
+
+.page-btn{
+padding:8px 12px;
+font-size:13px;
+}
+}
+
+.filter-title{
+padding:10px 24px 0 24px;
+font-size:28px;
+font-weight:bold;
+color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="logo">
+🎬 Cine<span>Match</span>
+</div>
+
+<form class="search-bar" action="/search" method="POST">
+<input name="movie" placeholder="Search movie..." autocomplete="off">
+<button type="submit">🔍</button>
+</form>
+
+<div class="profile" onclick="window.location.href='/profile'" title="My Profile">
+👤
+</div>
+
+</div>
+
+<div class="navbar">
+
+<div class="menu">
+<button onclick="window.location.href='/'">🏠 HOME</button>
+</div>
+
+<div class="menu">
+<button onclick="toggleMenu(this)">🏷 GENRE ▾</button>
+
+<div class="dropdown">
+<a href="/genre/Action">Action</a>
+<a href="/genre/Romance">Romance</a>
+<a href="/genre/Comedy">Comedy</a>
+<a href="/genre/Adventure">Adventure</a>
+<a href="/genre/Drama">Drama</a>
+<a href="/genre/Horror">Horror</a>
+</div>
+
+</div>
+
+<div class="menu">
+<button onclick="window.location.href='/genre/Animation'">✨ ANIMATION</button>
+</div>
+
+<div class="menu">
+<button onclick="toggleMenu(this)">🌍 Languages ▾</button>
+<div class="dropdown">
+<a href="/language/English">English</a>
+<a href="/language/Hindi">Hindi</a>
+</div>
+</div>
+
+<div class="menu">
+<button onclick="toggleMenu(this)">📅 YEAR ▾</button>
+
+<div class="dropdown">
+<a href="/year/2026">2026</a>
+<a href="/year/2025">2025</a>
+<a href="/year/2024">2024</a>
+<a href="/year/2023">2023</a>
+<a href="/year/2022">2022</a>
+<a href="/year/2021">2021</a>
+<a href="/year/2020">2020-02</a>
+</div>
+
+</div>
+
+<div class="menu">
+<button onclick="window.location.href='/favorites'">❤️ FAVORITES</button>
+</div>
+
+<div class="menu">
+<button onclick="window.location.href='/about'">ℹ️ ABOUT</button>
+</div>
+
+</div>
+
+<!-- SEARCH RESULT -->
+
+{% if main_movie is not none %}
+
+<h2 style="text-align:center;margin-top:40px;">🎬 Your Search Movie</h2>
+
+<div style="display:flex;justify-content:center;margin-top:20px;">
+<div class="movie" style="width:260px;">
+
+<img src="{{main_movie.poster}}">
+<h3>{{main_movie.title}}</h3>
+<p>IMDb ⭐ {{ "%.1f"|format(main_movie.vote_average) }}</p>
+
+<div class="buttons">
+<button class="trailer" onclick="playTrailer('{{main_movie.title}}')">Trailer</button>
+<button class="details" onclick="window.location.href='/movie/{{main_movie.title|urlencode}}'">Details</button>
+</div>
+
+</div>
+</div>
+
+{% endif %}
+
+{% if similar_movies is not none %}
+
+<h2 style="text-align:center;margin-top:40px;">🔥 Similar Movies</h2>
+
+<div class="movies">
+
+{% for movie in similar_movies.itertuples() %}
+
+<div class="movie">
+
+<a href="/movie/{{movie.title|urlencode}}">
+<img loading="lazy" src="{{movie.poster}}">
+</a>
+
+<h3>{{movie.title}}</h3>
+<p>IMDb ⭐ {{ "%.1f"|format(movie.vote_average) }}</p>
+
+<div class="buttons">
+<button class="trailer" onclick="playTrailer('{{movie.title}}')">Trailer</button>
+<button class="favorite" onclick="saveFavorite('{{movie.title}}',this)">❤</button>
+<button class="details" onclick="window.location.href='/movie/{{movie.title|urlencode}}'">Details</button>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+<!-- TRENDING -->
+
+{% if show_trending and trending is not none and not trending.empty %}
+
+<div class="trending">
+
+<h2>🔥 Trending Movies</h2>
+
+<div class="trend-row">
+
+{% for movie in trending.itertuples() %}
+
+<div class="trend-card">
+
+<a href="{{ url_for('movie_detail', title=movie.title) }}">
+<img src="{{ movie.poster if movie.poster else 'https://via.placeholder.com/300x450?text=No+Poster' }}">
+</a>
+
+<div class="trend-info">
+<h4>{{ movie.title }}</h4>
+<p>⭐ IMDb {{ "%.1f"|format(movie.vote_average) if movie.vote_average is not none else 'N/A' }}</p>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+{% if current_filter %}
+<div class="filter-title">{{ current_filter }}</div>
+{% endif %}
+
+<!-- ALL MOVIES -->
+
+{% if movies is not none and movies|length > 0 %}
+
+<div class="movies">
+
+{% for movie in movies.itertuples() %}
+
+<div class="movie">
+
+<a href="/movie/{{ movie.title|urlencode }}">
+<img loading="lazy" src="{{ movie.poster if movie.poster else 'https://via.placeholder.com/300x450?text=No+Poster' }}" alt="{{ movie.title }}">
+</a>
+
+<h3 title="{{ movie.title }}">{{ movie.title }}</h3>
+<p>IMDb ⭐ {{ "%.1f"|format(movie.vote_average) }}</p>
+
+<div class="buttons">
+<button class="trailer" onclick="playTrailer(`{{ movie.title }}`)">Trailer</button>
+<button class="favorite" onclick="saveFavorite(`{{ movie.title }}`, this)">❤</button>
+<button class="details" onclick="window.location.href='/movie/{{ movie.title|urlencode }}'">Details</button>
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="no-results">
+<h2>No movies found</h2>
+<p>Try another filter or go back to the homepage.</p>
+<button onclick="window.location.href='/'">🏠 Back to Home</button>
+</div>
+
+{% endif %}
+
+<!-- PAGINATION -->
+
+{% if total_pages > 1 and main_movie is none %}
+
+<div class="pagination">
+
+    {% if page > 1 %}
+    <a href="/?page=1" class="page-btn">First</a>
+    {% endif %}
+
+    {% if page > 1 %}
+    <a href="/?page={{ page - 1 }}" class="page-btn">Previous</a>
+    {% else %}
+    <span class="page-btn disabled">Previous</span>
+    {% endif %}
+
+    {% for p in range(start_page, end_page + 1) %}
+        {% if p == page %}
+        <span class="page-btn active">{{ p }}</span>
+        {% else %}
+        <a href="/?page={{ p }}" class="page-btn">{{ p }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page < total_pages %}
+    <a href="/?page={{ page + 1 }}" class="page-btn">Next</a>
+    {% else %}
+    <span class="page-btn disabled">Next</span>
+    {% endif %}
+
+</div>
+
+{% endif %}
+
+<!-- TRAILER POPUP -->
+<div id="popup">
+<div class="close" onclick="closeTrailer()">✖</div>
+<iframe id="trailer" allowfullscreen></iframe>
+</div>
+
+<script>
+
+function saveFavorite(title,btn){
+btn.classList.toggle("active")
+fetch("/favorite",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({title:title})
+})
+}
+
+function playTrailer(title){
+document.getElementById("popup").style.display="flex"
+let query=encodeURIComponent(title+" trailer")
+document.getElementById("trailer").src="https://www.youtube.com/embed?listType=search&list="+query
+}
+
+function closeTrailer(){
+document.getElementById("popup").style.display="none"
+document.getElementById("trailer").src=""
+}
+
+function toggleMenu(btn){
+let dropdown=btn.nextElementSibling
+let all=document.querySelectorAll(".dropdown")
+all.forEach(d=>{
+if(d!==dropdown){d.style.display="none"}
+})
+dropdown.style.display=dropdown.style.display==="block"?"none":"block"
+}
+
+document.addEventListener("click",function(e){
+if(!e.target.closest(".menu")){
+document.querySelectorAll(".dropdown").forEach(d=>{
+d.style.display="none"
+})
+}
+})
+
+
+
+</script>
+
+</body>
+</html>

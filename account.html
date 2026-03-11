@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>CineMatch Account</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba") center/cover no-repeat fixed;
+color:white;
+}
+
+/* dark overlay */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.75);
+z-index:-1;
+}
+
+.container{
+max-width:420px;
+margin:auto;
+padding-top:80px;
+}
+
+.logo{
+text-align:center;
+font-size:42px;
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.logo span{
+color:#ff2c2c;
+}
+
+.tagline{
+text-align:center;
+color:#bbb;
+margin-bottom:30px;
+}
+
+/* glass card */
+
+.card{
+backdrop-filter:blur(15px);
+background:rgba(20,20,20,0.6);
+padding:30px;
+border-radius:12px;
+box-shadow:0 0 15px rgba(0,0,0,0.6);
+margin-bottom:25px;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+}
+
+.info{
+margin-bottom:15px;
+font-size:18px;
+}
+
+.label{
+color:#aaa;
+}
+
+.value{
+font-weight:bold;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:6px;
+background:#2a2a2a;
+color:white;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+border:none;
+border-radius:6px;
+background:#ff2c2c;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff0000;
+}
+
+.logout{
+background:#444;
+}
+
+.link{
+text-align:center;
+margin-top:15px;
+color:#aaa;
+}
+
+.link a{
+color:#ff2c2c;
+cursor:pointer;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">🎬 Cine<span>Match</span></div>
+<div class="tagline">Find Your Next Movie</div>
+
+{% if user %}
+
+<h1>👤 User Profile</h1>
+
+<div class="card">
+
+<div class="info">
+<span class="label">Username:</span>
+<span class="value">{{user.username}}</span>
+</div>
+
+<div class="info">
+<span class="label">Email:</span>
+<span class="value">{{user.email}}</span>
+</div>
+
+<div class="info">
+<span class="label">Favorite Movies:</span>
+<span class="value">{{user.favorites}}</span>
+</div>
+
+<a href="/logout">
+<button class="logout">Logout</button>
+</a>
+
+</div>
+
+{% else %}
+
+<!-- LOGIN -->
+
+<div class="card" id="loginBox">
+
+<h2>Login</h2>
+
+<form method="POST" action="/login">
+
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="password" name="password" placeholder="Password" required>
+
+<button type="submit">Login</button>
+
+</form>
+
+<div class="link">
+Don't have an account?
+<a onclick="showSignup()">Signup</a>
+</div>
+
+</div>
+
+<!-- SIGNUP -->
+
+<div class="card" id="signupBox" style="display:none">
+
+<h2>Create Account</h2>
+
+<form method="POST" action="/signup">
+
+<input type="text" name="username" placeholder="Username" required>
+
+<input type="email" name="email" placeholder="Email" required>
+
+<input type="password" name="password" placeholder="Password" required>
+
+<button type="submit">Create Account</button>
+
+</form>
+
+<div class="link">
+Already have account?
+<a onclick="showLogin()">Login</a>
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+<script>
+
+function showSignup(){
+document.getElementById("loginBox").style.display="none"
+document.getElementById("signupBox").style.display="block"
+}
+
+function showLogin(){
+document.getElementById("signupBox").style.display="none"
+document.getElementById("loginBox").style.display="block"
+}
+
+</script>
+
+</body>
+</html>

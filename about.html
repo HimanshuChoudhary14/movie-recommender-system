@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CineMatch</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:Arial, sans-serif;
+            background:linear-gradient(180deg,#0b0b0b,#111,#0d0d0d);
+            color:white;
+            overflow-x:hidden;
+        }
+
+        a{
+            text-decoration:none;
+        }
+
+        /* HEADER */
+        .header{
+            position:sticky;
+            top:0;
+            z-index:1000;
+            background:linear-gradient(90deg,#1c1c1c,#111);
+            border-bottom:1px solid rgba(255,255,255,0.05);
+            box-shadow:0 4px 14px rgba(0,0,0,0.35);
+            padding:18px 24px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:15px;
+        }
+
+        .logo{
+            font-size:34px;
+            font-weight:bold;
+            cursor:pointer;
+            user-select:none;
+        }
+
+        .logo span{
+            color:#ff2c2c;
+            text-shadow:0 0 10px rgba(255,44,44,0.25);
+        }
+
+        .nav-actions{
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+        }
+
+        .nav-btn{
+            padding:10px 16px;
+            border-radius:10px;
+            font-weight:bold;
+            font-size:14px;
+            transition:0.3s;
+            border:1px solid #2f2f2f;
+            background:linear-gradient(135deg,#222,#1a1a1a);
+            color:white;
+            display:inline-block;
+        }
+
+        .nav-btn:hover{
+            transform:translateY(-2px);
+            background:linear-gradient(135deg,#ff2c2c,#b30000);
+            border-color:#ff2c2c;
+            box-shadow:0 0 12px rgba(255,44,44,0.18);
+        }
+
+        /* HERO */
+        .hero{
+            max-width:1200px;
+            margin:0 auto;
+            padding:50px 24px 30px 24px;
+        }
+
+        .hero-card{
+            background:linear-gradient(145deg,#181818,#111);
+            border:1px solid rgba(255,255,255,0.05);
+            border-radius:22px;
+            padding:40px 30px;
+            box-shadow:0 10px 24px rgba(0,0,0,0.25);
+        }
+
+        .badge{
+            display:inline-block;
+            padding:8px 14px;
+            border-radius:999px;
+            background:rgba(255,44,44,0.10);
+            border:1px solid rgba(255,44,44,0.18);
+            color:#ff6b6b;
+            font-size:13px;
+            font-weight:bold;
+            margin-bottom:18px;
+        }
+
+        .hero h1{
+            font-size:46px;
+            line-height:1.2;
+            margin-bottom:16px;
+            letter-spacing:0.3px;
+        }
+
+        .hero h1 span{
+            color:#ff2c2c;
+        }
+
+        .hero p{
+            color:#cfcfcf;
+            font-size:17px;
+            line-height:1.9;
+            max-width:900px;
+        }
+
+        /* SECTION */
+        .section{
+            max-width:1200px;
+            margin:0 auto;
+            padding:20px 24px 0 24px;
+        }
+
+        .section-title{
+            font-size:30px;
+            margin-bottom:18px;
+            color:white;
+        }
+
+        .section-subtitle{
+            color:#bdbdbd;
+            font-size:15px;
+            line-height:1.8;
+            margin-bottom:24px;
+            max-width:900px;
+        }
+
+        /* FEATURE GRID */
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:linear-gradient(145deg,#1a1a1a,#131313);
+            border:1px solid rgba(255,255,255,0.05);
+            border-radius:18px;
+            padding:24px 20px;
+            transition:0.3s;
+            box-shadow:0 6px 14px rgba(0,0,0,0.18);
+        }
+
+        .card:hover{
+            transform:translateY(-6px);
+            border-color:rgba(255,44,44,0.18);
+            box-shadow:0 0 18px rgba(255,44,44,0.12);
+        }
+
+        .card-icon{
+            font-size:28px;
+            margin-bottom:14px;
+        }
+
+        .card h3{
+            font-size:19px;
+            margin-bottom:10px;
+            color:#ff4d4d;
+        }
+
+        .card p{
+            color:#c8c8c8;
+            font-size:14px;
+            line-height:1.8;
+        }
+
+        /* TECH STACK */
+        .stack-wrap{
+            display:flex;
+            flex-wrap:wrap;
+            gap:12px;
+            margin-top:10px;
+        }
+
+        .stack{
+            padding:10px 14px;
+            border-radius:999px;
+            background:#1b1b1b;
+            border:1px solid #2b2b2b;
+            color:#ddd;
+            font-size:14px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .stack:hover{
+            border-color:#ff2c2c;
+            color:white;
+            box-shadow:0 0 10px rgba(255,44,44,0.12);
+        }
+
+        /* DEVELOPER CARD */
+        .developer{
+            max-width:1200px;
+            margin:30px auto 0 auto;
+            padding:0 24px;
+        }
+
+        .developer-card{
+            background:linear-gradient(145deg,#181818,#111);
+            border:1px solid rgba(255,255,255,0.05);
+            border-radius:22px;
+            padding:32px 28px;
+            box-shadow:0 10px 24px rgba(0,0,0,0.22);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:25px;
+            flex-wrap:wrap;
+        }
+
+        .developer-left{
+            flex:1;
+            min-width:280px;
+        }
+
+        .developer-label{
+            color:#ff6b6b;
+            font-size:13px;
+            font-weight:bold;
+            letter-spacing:1px;
+            text-transform:uppercase;
+            margin-bottom:10px;
+        }
+
+        .developer h2{
+            font-size:34px;
+            margin-bottom:10px;
+        }
+
+        .developer p{
+            color:#c7c7c7;
+            line-height:1.9;
+            font-size:15px;
+            max-width:700px;
+        }
+
+        .highlight{
+            color:#ffffff;
+            font-weight:bold;
+        }
+
+        .social-links{
+            display:flex;
+            gap:14px;
+            flex-wrap:wrap;
+        }
+
+        .social-btn{
+            min-width:170px;
+            text-align:center;
+            padding:14px 18px;
+            border-radius:14px;
+            font-weight:bold;
+            font-size:15px;
+            transition:0.3s;
+            display:inline-block;
+            border:1px solid transparent;
+        }
+
+        .linkedin{
+            background:linear-gradient(135deg,#0A66C2,#084d94);
+            color:white;
+        }
+
+        .linkedin:hover{
+            transform:translateY(-3px);
+            box-shadow:0 0 18px rgba(10,102,194,0.28);
+        }
+
+        .github{
+            background:linear-gradient(135deg,#2d333b,#161b22);
+            color:white;
+            border-color:#30363d;
+        }
+
+        .github:hover{
+            transform:translateY(-3px);
+            box-shadow:0 0 18px rgba(255,255,255,0.08);
+        }
+
+        /* FOOTER */
+        .footer{
+            max-width:1200px;
+            margin:35px auto 40px auto;
+            padding:0 24px;
+        }
+
+        .footer-box{
+            text-align:center;
+            color:#8d8d8d;
+            font-size:14px;
+            line-height:1.8;
+            padding:22px 18px;
+            border-top:1px solid rgba(255,255,255,0.05);
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1100px){
+            .grid{
+                grid-template-columns:repeat(2,1fr);
+            }
+        }
+
+        @media(max-width:768px){
+            .hero{
+                padding-top:30px;
+            }
+
+            .hero-card{
+                padding:28px 20px;
+            }
+
+            .hero h1{
+                font-size:32px;
+            }
+
+            .hero p{
+                font-size:15px;
+            }
+
+            .section-title{
+                font-size:26px;
+            }
+
+            .developer h2{
+                font-size:28px;
+            }
+
+            .logo{
+                font-size:28px;
+            }
+
+            .social-btn{
+                width:100%;
+            }
+        }
+
+        @media(max-width:600px){
+            .grid{
+                grid-template-columns:1fr;
+            }
+
+            .header{
+                justify-content:center;
+            }
+
+            .nav-actions{
+                justify-content:center;
+                width:100%;
+            }
+
+            .hero h1{
+                font-size:28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo" onclick="window.location.href='/'">
+            🎬 Cine<span>Match</span>
+        </div>
+
+        <div class="nav-actions">
+            <a href="/" class="nav-btn">🏠 Home</a>
+             
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-card">
+            <div class="badge">MOVIE RECOMMENDATION PLATFORM</div>
+            <h1>About <span>CineMatch</span></h1>
+            <p>
+                <strong>CineMatch</strong> is a modern movie recommendation web application designed to make discovering movies faster, easier, and more enjoyable.
+                It allows users to search movies, explore trending content, filter by genre, language, and year, save favorites, and get similar movie recommendations
+                through a clean and responsive interface.
+            </p>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="section">
+        <h2 class="section-title">✨ Core Features</h2>
+        <p class="section-subtitle">
+            CineMatch is built with a focus on usability, clean UI, and fast discovery. The platform helps users quickly find movies they may enjoy
+            based on search behavior and curated filtering options.
+        </p>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🎬</div>
+                <h3>Movie Search</h3>
+                <p>Search for movies instantly and view detailed information, poster, rating, and trailer in a clean interface.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔥</div>
+                <h3>Trending Section</h3>
+                <p>Browse trending and popular movies with visually appealing cards and quick access to movie details.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Smart Recommendations</h3>
+                <p>Discover similar movies based on your selected title using recommendation logic integrated with the dataset.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">❤️</div>
+                <h3>Favorites System</h3>
+                <p>Save and revisit your favorite movies anytime through a dedicated favorites section for a better user experience.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="section" style="margin-top:28px;">
+        <h2 class="section-title">🛠️ Tech Stack</h2>
+        <p class="section-subtitle">
+            This project is developed using a practical full-stack approach focused on performance, readability, and clean UI rendering.
+        </p>
+
+        <div class="stack-wrap">
+            <div class="stack">Python</div>
+            <div class="stack">Flask</div>
+            <div class="stack">Pandas</div>
+            <div class="stack">NumPy</div>
+            <div class="stack">HTML5</div>
+            <div class="stack">CSS3</div>
+            <div class="stack">JavaScript</div>
+            <div class="stack">Jinja2</div>
+        </div>
+    </div>
+
+    <!-- DEVELOPER -->
+    <div class="developer">
+        <div class="developer-card">
+            <div class="developer-left">
+                <div class="developer-label">Developer Profile</div>
+                <h2>Himanshu Choudhary</h2>
+                <p>
+                    Passionate about building practical and visually strong web applications with a focus on
+                    <span class="highlight">data-driven projects</span>,
+                    <span class="highlight">clean user interfaces</span>, and
+                    <span class="highlight">real-world deployment-ready ideas</span>.
+                    CineMatch reflects a blend of backend logic, data handling, and frontend presentation.
+                </p>
+            </div>
+
+            <div class="social-links">
+                <a class="social-btn linkedin" href="https://www.linkedin.com/in/himanshu-choudhary-data-analytics/" target="_blank">🔗 LinkedIn</a>
+                <a class="social-btn github" href="https://github.com/HimanshuChoudhary14" target="_blank">💻 GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-box">
+            Built with ❤️ using Python, Flask, Pandas, HTML, CSS, JavaScript, and Jinja2.
+        </div>
+    </div>
+
+</body>
+</html>
